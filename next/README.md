@@ -45,3 +45,7 @@ The `wrestle-R/Honours-project` GitHub repository connects to the `honours-proje
 Connect the actual trained DenseNet121 and ResNet50 models through a FastAPI backend. Replace the illustrative attention maps with real Grad-CAM outputs and publish measured evaluation metrics only after validation. Preserve patient-level dataset splits, report label noise and evaluate thresholds and class imbalance.
 
 Academic prototype. Not for clinical use.
+
+## Color themes
+
+The header's sun/moon button switches between dark and light themes. Dark is the default, and an explicit choice is saved in browser storage, applied before the first paint on repeat visits and synchronized across tabs. The switch still works if storage is blocked. All sections, forms and controls use shared tokens from `app/theme.css`. The lung visual uses a coordinated ink-and-copper treatment on light backgrounds, while the radiograph retains a neutral dark viewing stage in either theme.

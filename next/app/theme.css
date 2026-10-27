@@ -1,0 +1,162 @@
+/* Shared tokens carry the selected theme through every section and control. */
+:root {
+  color-scheme: dark;
+  --background: #101211;
+  --panel: #151815;
+  --text: #eeeae2;
+  --secondary: #c0c5b8;
+  --muted: #a3aa9b;
+  --subtle: #929c87;
+  --orange: #f36a3b;
+  --line: #30392c;
+  --line-strong: #56604b;
+  --surface: #141813;
+  --surface-raised: #1b2118;
+  --science-bg: #1b2019;
+  --diagram-line: #78866a;
+  --selected-bg: #f36a3b10;
+  --selected-border: #ad633e;
+  --primary-hover: #fff;
+  --hover-surface: #293224;
+  --range-track: #454e3c;
+  --scene-orbit: #8c855833;
+  --menu-shadow: #0008;
+  --anatomy-filter: none;
+  --anatomy-blend: normal;
+  --orbital-core: #f1d5aa;
+  --orbital-particles: #f0d7af88;
+  --scan-background: #080a09;
+  --scan-text: #b5bfaa;
+  --scan-line: #eeeae2;
+  --scan-control-bg: #1c201b;
+  --scan-border: #777e6c;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --background: #f6f3eb;
+  --panel: #f0ede4;
+  --text: #222920;
+  --secondary: #485141;
+  --muted: #636d5b;
+  --subtle: #66715b;
+  --orange: #bc4925;
+  --line: #d7dacb;
+  --line-strong: #b2bca5;
+  --surface: #efeee5;
+  --surface-raised: #e9ecdf;
+  --science-bg: #e9e7dd;
+  --diagram-line: #89977b;
+  --selected-bg: #bc49250c;
+  --selected-border: #bd603a;
+  --primary-hover: #3b4633;
+  --hover-surface: #dce2d1;
+  --range-track: #c6cdb9;
+  --scene-orbit: #82714f40;
+  --menu-shadow: #3f4c261a;
+  --anatomy-filter: invert(1) hue-rotate(180deg) saturate(0.75);
+  --anatomy-blend: multiply;
+  --orbital-core: #805f34;
+  --orbital-particles: #75512f99;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 37px;
+  height: 37px;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--secondary);
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    background 0.2s;
+}
+.theme-toggle:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+  background: var(--selected-bg);
+}
+.theme-moon,
+[data-theme="light"] .theme-sun {
+  display: none;
+}
+[data-theme="light"] .theme-moon {
+  display: block;
+}
+/* Tone the transparent lungs themselves. Preserve the radiograph's neutral dark stage. */
+.lung-canvas,
+.lung-fallback {
+  filter: var(--anatomy-filter);
+  mix-blend-mode: var(--anatomy-blend);
+}
+.orbital-core {
+  background: radial-gradient(
+    ellipse,
+    var(--orbital-core),
+    #b87d3f44 30%,
+    transparent 70%
+  );
+}
+.orbital-core:after {
+  background-image: radial-gradient(
+    var(--orbital-particles) 0.7px,
+    transparent 0.7px
+  );
+}
+.anatomy-orbit:after {
+  background: var(--secondary);
+}
+.scan-image {
+  color: var(--scan-text);
+}
+.scan-stage {
+  border-color: var(--scan-border);
+}
+.compare-line {
+  background: var(--scan-line);
+}
+.compare-line > span {
+  color: var(--scan-text);
+}
+body,
+.research-strip,
+.science-section,
+.workbench,
+.viewer-info,
+.viewer-modes,
+.viewer-controls,
+.demo-disclaimer,
+.region-picker select,
+.nav-links {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+@media (max-width: 600px) {
+  .nav-actions {
+    gap: 10px;
+  }
+  .nav-actions .nav-project {
+    margin: 0;
+  }
+  .theme-toggle {
+    width: 32px;
+    height: 34px;
+  }
+  .theme-toggle svg {
+    width: 14px;
+  }
+}
+
+.anatomy {
+  background: var(--background);
+}

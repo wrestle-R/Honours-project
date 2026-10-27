@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Manrope, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+import "./theme.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-body" });
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-display" });
@@ -35,8 +36,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-theme="dark"
+      suppressHydrationWarning
       className={`${geist.variable} ${manrope.variable} ${serif.variable}`}
     >
+      <head>
+        <script
+          id="lucent-theme-init"
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t='dark';try{if(localStorage.getItem('lucent-theme')==='light')t='light'}catch(e){}document.documentElement.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='light'?'#f6f3eb':'#101211')})()`,
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

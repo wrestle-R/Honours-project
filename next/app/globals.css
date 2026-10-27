@@ -1,12 +1,3 @@
-:root {
-  --ink: #101211;
-  --panel: #151815;
-  --ivory: #eeeae2;
-  --muted: #9b9e96;
-  --orange: #f36a3b;
-  --line: #30352e;
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-}
 * {
   box-sizing: border-box;
 }
@@ -16,15 +7,15 @@ html {
 }
 body {
   margin: 0;
-  background: var(--ink);
-  color: var(--ivory);
+  background: var(--background);
+  color: var(--text);
   font-family: var(--font-body), Arial, sans-serif;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
 }
 ::selection {
   background: var(--orange);
-  color: var(--ink);
+  color: var(--background);
 }
 button,
 input,
@@ -147,11 +138,11 @@ input:focus-visible {
   transform: translateY(-3px);
 }
 .button-primary {
-  background: var(--ivory);
-  color: var(--ink);
+  background: var(--text);
+  color: var(--background);
 }
 .button-primary:hover {
-  background: #fff;
+  background: var(--primary-hover);
 }
 .button-primary svg {
   transition: transform 0.3s var(--ease);
@@ -160,20 +151,20 @@ input:focus-visible {
   transform: translateX(4px);
 }
 .button-outline {
-  border: 1px solid #66695f;
+  border: 1px solid var(--line-strong);
   background: transparent;
 }
 .button-outline:hover {
-  background: var(--ivory);
-  color: var(--ink);
+  background: var(--text);
+  color: var(--background);
 }
 .skip-link {
   position: fixed;
   left: 20px;
   top: 15px;
   z-index: 100;
-  background: var(--ivory);
-  color: var(--ink);
+  background: var(--text);
+  color: var(--background);
   padding: 12px;
   transform: translateY(-180%);
 }
@@ -214,7 +205,7 @@ input:focus-visible {
 }
 .nav-links a {
   font-size: 11px;
-  color: #c4c5be;
+  color: var(--secondary);
   transition: color 0.2s;
 }
 .nav-links a:hover {
@@ -247,7 +238,7 @@ input:focus-visible {
 }
 .hero-eyebrow {
   margin-bottom: 33px;
-  color: #b9bcb3;
+  color: var(--secondary);
   letter-spacing: 2.4px;
 }
 .hero h1 {
@@ -265,7 +256,7 @@ input:focus-visible {
 .hero-copy > p {
   font-size: 16px;
   line-height: 1.7;
-  color: #b3b6ac;
+  color: var(--secondary);
   margin-top: 30px;
   font-weight: 300;
 }
@@ -278,11 +269,11 @@ input:focus-visible {
 .hero-scroll {
   height: 43px;
   width: 43px;
-  border: 1px solid #333930;
+  border: 1px solid var(--line-strong);
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: #9da394;
+  color: var(--secondary);
   transition:
     border-color 0.2s,
     color 0.2s;
@@ -294,7 +285,7 @@ input:focus-visible {
 .hero-footnote {
   font-size: 8px;
   letter-spacing: 1.6px;
-  color: #7a8275;
+  color: var(--subtle);
   display: flex;
   gap: 11px;
   align-items: center;
@@ -303,7 +294,7 @@ input:focus-visible {
 .small-line {
   height: 1px;
   width: 20px;
-  background: #68705e;
+  background: var(--line-strong);
 }
 .hero-facts {
   padding-block: 29px 31px;
@@ -340,16 +331,16 @@ input:focus-visible {
 .hero-facts span:not(.fact-value) {
   font-size: 7px;
   letter-spacing: 1.4px;
-  color: #828a7b;
+  color: var(--subtle);
   display: block;
   margin-top: 8px;
 }
 .fact-icon {
-  color: #b7bda9;
+  color: var(--secondary);
 }
 .research-strip {
   border-block: 1px solid var(--line);
-  background: #141713;
+  background: var(--surface);
 }
 .research-strip .wrap {
   display: flex;
@@ -361,14 +352,14 @@ input:focus-visible {
 .research-strip .wrap > span:first-child {
   font-size: 7px;
   letter-spacing: 1.5px;
-  color: #82897b;
+  color: var(--subtle);
 }
 .research-strip .wrap > span:last-child {
   display: flex;
   align-items: center;
   gap: 26px;
   font-size: 11px;
-  color: #bfc5b7;
+  color: var(--secondary);
 }
 .research-strip i {
   height: 3px;
@@ -425,7 +416,7 @@ input:focus-visible {
   position: absolute;
   left: 50%;
   top: 50%;
-  border: 1px solid #8c855820;
+  border: 1px solid var(--scene-orbit);
   border-radius: 50%;
   pointer-events: none;
   z-index: -1;
@@ -483,7 +474,7 @@ input:focus-visible {
 }
 .tiny-cross {
   font-size: 24px;
-  color: #717961;
+  color: var(--subtle);
   font-weight: 200;
 }
 .anatomy-label:after {
@@ -491,7 +482,7 @@ input:focus-visible {
   position: absolute;
   width: 52px;
   height: 40px;
-  border-top: 1px solid #535b45;
+  border-top: 1px solid var(--line-strong);
   right: 100%;
   top: 25px;
   transform: skew(-35deg);
@@ -499,7 +490,7 @@ input:focus-visible {
 .anatomy-axis {
   font-size: 6px;
   letter-spacing: 2px;
-  color: #747b66;
+  color: var(--subtle);
   position: absolute;
   pointer-events: none;
 }
@@ -528,7 +519,7 @@ input:focus-visible {
   gap: 8px;
   font-size: 8px;
   letter-spacing: 1px;
-  color: #9b9f90;
+  color: var(--secondary);
 }
 .scene-controls {
   display: flex;
@@ -540,7 +531,7 @@ input:focus-visible {
   width: 23px;
   height: 27px;
   background: transparent;
-  color: #a7ab9a;
+  color: var(--secondary);
 }
 .scene-controls button:hover {
   color: var(--orange);
@@ -555,7 +546,7 @@ input:focus-visible {
   gap: 8px;
   font-size: 8px;
   background: none;
-  color: #9d9f91;
+  color: var(--secondary);
   letter-spacing: 0.2px;
 }
 .attention-toggle > span {
@@ -611,7 +602,7 @@ input:focus-visible {
   font-size: 7px;
   letter-spacing: 1px;
   margin-top: 25px;
-  color: #aaa99a;
+  color: var(--subtle);
 }
 .availability > span {
   height: 4px;
@@ -620,9 +611,9 @@ input:focus-visible {
   border-radius: 50%;
 }
 .workbench {
-  border: 1px solid #43473d;
+  border: 1px solid var(--line-strong);
   border-radius: 12px;
-  background: #111411;
+  background: var(--surface);
   overflow: hidden;
 }
 .viewer-bar {
@@ -631,7 +622,7 @@ input:focus-visible {
   align-items: center;
   padding: 17px 22px;
   border-bottom: 1px solid var(--line);
-  color: #a0a693;
+  color: var(--secondary);
   font-size: 8px;
   letter-spacing: 1.4px;
 }
@@ -672,7 +663,7 @@ input:focus-visible {
   justify-content: center;
   gap: 12px;
   background: transparent;
-  color: #a6ac9c;
+  color: var(--secondary);
   width: 63px;
   height: 76px;
   border: 1px solid transparent;
@@ -681,19 +672,19 @@ input:focus-visible {
   font-size: 8px;
 }
 .viewer-modes button.selected {
-  border-color: #9d5c35;
-  background: #f36a3b0a;
+  border-color: var(--selected-border);
+  background: var(--selected-bg);
   color: var(--orange);
 }
 .viewer-modes button:hover {
   color: var(--orange);
-  background: #f36a3b08;
+  background: var(--selected-bg);
 }
 .scan-stage {
   position: relative;
   overflow: hidden;
   min-height: 490px;
-  background: #080a09;
+  background: var(--scan-background);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -748,7 +739,7 @@ input:focus-visible {
   justify-content: space-between;
   font-size: 6px;
   letter-spacing: 1.3px;
-  color: #8b9485;
+  color: var(--scan-text);
   z-index: 2;
   pointer-events: none;
 }
@@ -758,7 +749,7 @@ input:focus-visible {
 .scan-corner {
   height: 10px;
   width: 10px;
-  border-color: #777e6c;
+  border-color: var(--scan-border);
   border-style: solid;
   position: absolute;
   pointer-events: none;
@@ -789,7 +780,7 @@ input:focus-visible {
   top: 10%;
   bottom: 10%;
   width: 1px;
-  background: var(--ivory);
+  background: var(--text);
   pointer-events: none;
   z-index: 3;
 }
@@ -797,8 +788,8 @@ input:focus-visible {
   height: 32px;
   width: 32px;
   border-radius: 50%;
-  border: 1px solid #c5c9b6;
-  background: #1c201b;
+  border: 1px solid var(--scan-text);
+  background: var(--scan-control-bg);
   display: grid;
   place-items: center;
   position: absolute;
@@ -815,7 +806,7 @@ input:focus-visible {
   justify-content: space-between;
   font-size: 7px;
   pointer-events: none;
-  color: #bbc1ae;
+  color: var(--scan-text);
 }
 .compare-range {
   position: absolute;
@@ -838,7 +829,7 @@ input:focus-visible {
 .viewer-info .eyebrow {
   font-size: 6px;
   letter-spacing: 1.5px;
-  color: #8f9786;
+  color: var(--subtle);
 }
 .viewer-info h3 {
   font-size: 34px;
@@ -851,7 +842,7 @@ input:focus-visible {
 .viewer-intro {
   font-size: 10px;
   line-height: 1.8;
-  color: #949d8b;
+  color: var(--muted);
   max-width: 240px;
 }
 .viewer-features {
@@ -864,7 +855,7 @@ input:focus-visible {
   border-top: 1px solid var(--line);
 }
 .viewer-feature > svg {
-  color: #dd7548;
+  color: var(--orange);
   margin-top: 2px;
   stroke-width: 1.2;
   flex-shrink: 0;
@@ -877,7 +868,7 @@ input:focus-visible {
 }
 .viewer-feature p {
   font-size: 9px;
-  color: #919a86;
+  color: var(--muted);
   line-height: 1.8;
 }
 .region-picker {
@@ -888,18 +879,18 @@ input:focus-visible {
 }
 .region-picker label {
   font-size: 8px;
-  color: #b0b5a6;
+  color: var(--secondary);
 }
 .region-picker select {
   width: 100%;
-  background: #1a2018;
-  color: #c5cbbb;
-  border: 1px solid #3c4535;
+  background: var(--surface-raised);
+  color: var(--secondary);
+  border: 1px solid var(--line-strong);
   border-radius: 5px;
   padding: 10px;
   font-size: 9px;
   cursor: pointer;
-  color-scheme: dark;
+  color-scheme: inherit;
 }
 .text-link {
   display: inline-flex;
@@ -907,9 +898,9 @@ input:focus-visible {
   gap: 13px;
   margin-top: 20px;
   font-size: 9px;
-  color: #c0c6b5;
+  color: var(--secondary);
   align-self: flex-start;
-  border-bottom: 1px solid #68705e;
+  border-bottom: 1px solid var(--line-strong);
   padding-bottom: 5px;
 }
 .text-link:hover {
@@ -931,7 +922,7 @@ input:focus-visible {
   min-width: 134px;
 }
 .viewer-controls output {
-  color: #8f9982;
+  color: var(--subtle);
 }
 .viewer-controls input {
   width: 220px;
@@ -972,7 +963,7 @@ input:focus-visible {
   margin-left: auto;
   font-size: 6px;
   letter-spacing: 1px;
-  color: #939e86;
+  color: var(--subtle);
   border-left: 1px solid var(--line);
   padding-left: 25px;
 }
@@ -981,20 +972,20 @@ input:focus-visible {
 }
 .demo-disclaimer {
   font-size: 8px;
-  color: #929c86;
+  color: var(--subtle);
   line-height: 1.8;
   padding: 12px 22px;
-  background: #161a14;
+  background: var(--surface);
   border-top: 1px solid var(--line);
 }
 /* An open research notebook */
 .science-section {
-  background: #e9e6dd;
-  color: #171b17;
+  background: var(--science-bg);
+  color: var(--text);
   position: relative;
 }
 .science-heading .section-intro p {
-  color: #64695e;
+  color: var(--muted);
 }
 .science-heading {
   grid-template-columns: 1.8fr 1fr;
@@ -1013,7 +1004,7 @@ input:focus-visible {
 .science-columns article {
   position: relative;
   padding: 0 30px 0 0;
-  border-right: 1px solid #bdc1b3;
+  border-right: 1px solid var(--line);
   display: flex;
   flex-direction: column;
 }
@@ -1023,7 +1014,7 @@ input:focus-visible {
 }
 .science-number {
   font-size: 9px;
-  color: #c2613b;
+  color: var(--orange);
   letter-spacing: 1px;
 }
 .science-diagram {
@@ -1046,7 +1037,7 @@ input:focus-visible {
 .science-columns p {
   font-size: 12px;
   line-height: 1.85;
-  color: #63695d;
+  color: var(--muted);
   max-width: 280px;
 }
 .science-tag {
@@ -1054,7 +1045,7 @@ input:focus-visible {
   font-size: 6px;
   letter-spacing: 1.5px;
   margin-top: 28px;
-  color: #727c68;
+  color: var(--subtle);
 }
 .network-diagram {
   position: relative;
@@ -1068,13 +1059,13 @@ input:focus-visible {
 .network-diagram i {
   width: 7px;
   height: 7px;
-  border: 1px solid #6c775f;
+  border: 1px solid var(--diagram-line);
   border-radius: 50%;
   position: relative;
 }
 .network-diagram i:nth-child(3n) {
-  border-color: #d67645;
-  background: #d6764533;
+  border-color: var(--orange);
+  background: var(--selected-bg);
 }
 .network-diagram i:not(:nth-child(4n)):before {
   content: "";
@@ -1083,7 +1074,7 @@ input:focus-visible {
   top: 2px;
   width: 31px;
   height: 1px;
-  background: #aeb6a1;
+  background: var(--diagram-line);
   transform: rotate(20deg);
   transform-origin: left;
 }
@@ -1094,7 +1085,7 @@ input:focus-visible {
   top: 2px;
   width: 31px;
   height: 1px;
-  background: #aeb6a1;
+  background: var(--diagram-line);
   transform: rotate(-25deg);
   transform-origin: left;
 }
@@ -1115,7 +1106,7 @@ input:focus-visible {
 .heat-diagram i {
   height: 39px;
   width: 26px;
-  border: 1px solid #9fa990;
+  border: 1px solid var(--diagram-line);
   border-radius: 13px 13px 8px 8px;
   transform: rotate(13deg);
 }
@@ -1128,10 +1119,10 @@ input:focus-visible {
   width: 15px;
   border-radius: 50%;
   margin-left: 11px;
-  border: 1px solid #d17543;
+  border: 1px solid var(--orange);
 }
 .dataset-band {
-  border-top: 1px solid #b6bcaa;
+  border-top: 1px solid var(--line);
   margin-top: 58px;
   padding-top: 29px;
   display: grid;
@@ -1140,7 +1131,7 @@ input:focus-visible {
   align-items: center;
 }
 .dataset-band > div {
-  border-right: 1px solid #b6bcaa;
+  border-right: 1px solid var(--line);
 }
 .dataset-band > div:nth-child(3) {
   border: 0;
@@ -1149,7 +1140,7 @@ input:focus-visible {
   display: block;
   font-size: 6px;
   letter-spacing: 1.5px;
-  color: #777e6c;
+  color: var(--scan-border);
   margin-bottom: 11px;
 }
 .dataset-band strong {
@@ -1161,13 +1152,13 @@ input:focus-visible {
   height: 42px;
   width: 42px;
   border-radius: 50%;
-  border: 1px solid #a9b19c;
+  border: 1px solid var(--line-strong);
   display: grid;
   place-items: center;
   transition: background 0.2s;
 }
 .dataset-band > a:hover {
-  background: #d8dece;
+  background: var(--hover-surface);
 }
 .science-limitation {
   margin-top: 30px;
@@ -1176,7 +1167,7 @@ input:focus-visible {
   gap: 10px;
   font-size: 8px;
   line-height: 1.8;
-  color: #6e7763;
+  color: var(--subtle);
   max-width: 750px;
 }
 .info-dot {
@@ -1185,7 +1176,7 @@ input:focus-visible {
   min-width: 13px;
   line-height: 12px;
   text-align: center;
-  border: 1px solid #929d82;
+  border: 1px solid var(--line-strong);
   border-radius: 50%;
   font-size: 9px;
 }
@@ -1213,7 +1204,7 @@ input:focus-visible {
 .about-description {
   max-width: 350px;
   font-size: 13px;
-  color: #a4ad99;
+  color: var(--secondary);
   line-height: 1.8;
   margin: 29px 0 26px;
 }
@@ -1223,7 +1214,7 @@ input:focus-visible {
   gap: 9px;
   font-size: 9px;
   margin-top: 24px;
-  color: #939e86;
+  color: var(--subtle);
 }
 .training-status > span {
   height: 5px;
@@ -1337,7 +1328,7 @@ input:focus-visible {
 .project-roadmap > span {
   font-size: 7px;
   letter-spacing: 1.5px;
-  color: #7d8871;
+  color: var(--subtle);
   margin-right: auto;
 }
 .project-roadmap > div {
@@ -1347,12 +1338,12 @@ input:focus-visible {
 }
 .project-roadmap > div > span:not(.roadmap-dot) {
   font-size: 9px;
-  color: #a4ae98;
+  color: var(--secondary);
 }
 .project-roadmap small {
   font-size: 6px;
   letter-spacing: 0.7px;
-  color: #717d63;
+  color: var(--subtle);
 }
 .project-roadmap svg {
   color: var(--orange);
@@ -1366,10 +1357,10 @@ input:focus-visible {
 }
 .roadmap-dot.empty {
   background: transparent;
-  border: 1px solid #7a8869;
+  border: 1px solid var(--line-strong);
 }
 .footer {
-  border-top: 1px solid #48513e;
+  border-top: 1px solid var(--line-strong);
   padding-top: 35px;
 }
 .footer-top {
@@ -1394,7 +1385,7 @@ input:focus-visible {
   letter-spacing: 2px;
   margin-top: 16px;
   margin-left: 48px;
-  color: #829070;
+  color: var(--subtle);
 }
 .footer-links {
   display: flex;
@@ -1405,7 +1396,7 @@ input:focus-visible {
   display: flex;
   align-items: center;
   gap: 15px;
-  border-bottom: 1px solid #657058;
+  border-bottom: 1px solid var(--line-strong);
   padding-bottom: 7px;
 }
 .footer-links > a:hover {
@@ -1417,7 +1408,7 @@ input:focus-visible {
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  color: #7a866b;
+  color: var(--subtle);
   font-size: 7px;
   letter-spacing: 0.6px;
 }
@@ -1892,11 +1883,11 @@ input:focus-visible {
     top: 66px;
     left: 0;
     right: 0;
-    background: #1b2019;
+    background: var(--surface-raised);
     padding: 24px;
-    border: 1px solid #3c4635;
+    border: 1px solid var(--line-strong);
     border-radius: 9px;
-    box-shadow: 0 25px 40px #0008;
+    box-shadow: 0 25px 40px var(--menu-shadow);
     margin: 0;
     gap: 0;
   }
@@ -2232,7 +2223,7 @@ input:focus-visible {
     padding: 0 0 30px;
     margin-bottom: 30px;
     border-right: 0;
-    border-bottom: 1px solid #bcc3ae;
+    border-bottom: 1px solid var(--line);
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 10px;
@@ -2447,7 +2438,7 @@ input:focus-visible {
     font-family: Georgia, "Times New Roman", serif;
     font-size: clamp(18px, 1.65vw, 25px);
     line-height: 1.5;
-    color: #c0c3b8;
+    color: var(--secondary);
     margin-top: 30px;
   }
   .hero-eyebrow {

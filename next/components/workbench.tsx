@@ -170,12 +170,13 @@ export function Workbench() {
         </label>
         <input
           id="opacity"
+          aria-label="Attention opacity"
           type="range"
           min="0"
           max="100"
           value={opacity}
           style={{
-            background: `linear-gradient(to right,var(--orange) ${opacity}%,#454a44 ${opacity}%)`,
+            background: `linear-gradient(to right,var(--orange) ${opacity}%,var(--range-track) ${opacity}%)`,
           }}
           onChange={(e) => {
             setOpacity(Number(e.target.value));

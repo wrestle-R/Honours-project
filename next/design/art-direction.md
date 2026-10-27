@@ -17,3 +17,7 @@ Design references generated with the built-in image tool on 2026-10-27. One stan
 - Three.js point cloud is procedural conceptual anatomy, not a patient reconstruction. Reduced motion, visible pause, keyboard rotation and static fallback required.
 
 - Science reference: warm ivory full-width change of pace, large grotesk heading left (two lines) and short right intro. Three open methodology columns with fine vertical rules; flat dataset strip below. Translate 1536px reference into 56px desktop gutters, a 1440px max-width and 116px section padding. Keep all research claims in planned or in-progress tense. Omit the generated reference's implied clinical validation.
+
+## Theme system
+
+The approved hero layout remains the source for both themes. Dark uses luminous ivory/copper anatomy on ink; light uses an etched ink-and-copper treatment on warm paper. Shared tokens drive every section, including methodology, controls and mobile navigation. The original scan image stays on a neutral dark mount in both themes to preserve its radiographic contrast. Do not invert the whole page or the X-ray when extending this theme system.
