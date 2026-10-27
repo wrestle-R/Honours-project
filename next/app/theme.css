@@ -8,6 +8,7 @@
   --muted: #a3aa9b;
   --subtle: #929c87;
   --orange: #f36a3b;
+  --accent-ink: #171b14;
   --line: #30392c;
   --line-strong: #56604b;
   --surface: #141813;
@@ -41,6 +42,7 @@
   --muted: #636d5b;
   --subtle: #66715b;
   --orange: #bc4925;
+  --accent-ink: #fff8ef;
   --line: #d7dacb;
   --line-strong: #b2bca5;
   --surface: #efeee5;
@@ -92,7 +94,6 @@
   display: block;
 }
 /* Tone the transparent lungs themselves. Preserve the radiograph's neutral dark stage. */
-.lung-canvas,
 .lung-fallback {
   filter: var(--anatomy-filter);
   mix-blend-mode: var(--anatomy-blend);

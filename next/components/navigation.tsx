@@ -1,26 +1,45 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Brand } from "./brand";
 import { ThemeToggle } from "./theme-toggle";
 export function Navigation() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const menu = useRef<HTMLButtonElement>(null);
   return (
-    <header className="nav wrap">
+    <header
+      className="nav wrap"
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          setOpen(false);
+          menu.current?.focus();
+        }
+      }}
+    >
       <Brand />
       <nav
         aria-label="Main navigation"
         className={open ? "nav-links is-open" : "nav-links"}
         id="main-nav"
       >
-        <a href="#workbench" onClick={() => setOpen(false)}>
-          The workbench
+        <a
+          href="/"
+          aria-current={pathname === "/" ? "page" : undefined}
+          onClick={() => setOpen(false)}
+        >
+          Overview
         </a>
-        <a href="#science" onClick={() => setOpen(false)}>
+        <a
+          href="/workbench"
+          aria-current={pathname === "/workbench" ? "page" : undefined}
+          onClick={() => setOpen(false)}
+        >
+          Workbench
+        </a>
+        <a href="/#science" onClick={() => setOpen(false)}>
           The science
-        </a>
-        <a href="#about" onClick={() => setOpen(false)}>
-          About
         </a>
       </nav>
       <div className="nav-actions">
@@ -35,6 +54,7 @@ export function Navigation() {
         </a>
         <button
           className="menu-button"
+          ref={menu}
           aria-controls="main-nav"
           aria-expanded={open}
           aria-label={open ? "Close menu" : "Open menu"}

@@ -2,7 +2,7 @@ export function Brand({ footer = false }: { footer?: boolean }) {
   return (
     <a
       className={`brand ${footer ? "brand-footer" : ""}`}
-      href="#top"
+      href="/"
       aria-label="Lucent home"
     >
       <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">

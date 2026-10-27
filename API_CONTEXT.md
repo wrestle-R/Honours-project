@@ -1,6 +1,8 @@
 # Frontend integration: Chest X-ray demo API
 
-**Status:** Backend runs locally with both trained model checkpoints included in this project. This is an academic prototype, not a diagnostic service. The backend is not deployed to a public URL yet. Set `API_BASE_URL` to the address of the running server. For development on the same machine the default is `http://127.0.0.1:8000`.
+**Lucent frontend:** `/workbench` is implemented. Browser requests go to same-origin `/api/service` and `/api/predict`; the Next.js server forwards them to the local backend by default. Start both services with `./start.command`. Hosted inference requires a separately deployed backend and the server-side variable `LUCENT_API_URL`. Local uploads are limited to 20 MiB and the hosted frontend bridge to 4 MiB.
+
+**Backend status:** Backend runs locally with both trained model checkpoints included in this project. This is an academic prototype, not a diagnostic service. The backend is not deployed to a public URL yet. Set `API_BASE_URL` to the address of the running server. For development on the same machine the default is `http://127.0.0.1:8000`.
 
 The API accepts one chest X-ray per request and returns 14 independent finding scores. To compare models, send a separate request for each model using the same file. Do not treat scores as calibrated disease probabilities, label a scan healthy, or present the output as a diagnosis. The API validates file type and dimensions; it cannot verify that the image is a chest X-ray.
 
@@ -11,7 +13,12 @@ The API accepts one chest X-ray per request and returns 14 independent finding s
 No parameters. Example response:
 
 ```json
-{"status":"ok","service":"chest-xray-demo","loaded_models":["resnet50","densenet121"],"model_files":{"resnet50":true,"densenet121":true}}
+{
+  "status": "ok",
+  "service": "chest-xray-demo",
+  "loaded_models": ["resnet50", "densenet121"],
+  "model_files": { "resnet50": true, "densenet121": true }
+}
 ```
 
 Both checkpoints load during server startup. A successful health response lists both in `loaded_models`; `model_files` additionally reports that the files exist. If model loading fails, server startup fails instead of reporting ready.
@@ -23,8 +30,26 @@ No parameters. Response includes the available model IDs, checkpoint presence, t
 ```json
 {
   "default_model": "resnet50",
-  "models": [{"id":"resnet50","available":true},{"id":"densenet121","available":true}],
-  "findings": ["Atelectasis","Cardiomegaly","Consolidation","Edema","Effusion","Emphysema","Fibrosis","Hernia","Infiltration","Mass","Nodule","Pleural_Thickening","Pneumonia","Pneumothorax"],
+  "models": [
+    { "id": "resnet50", "available": true },
+    { "id": "densenet121", "available": true }
+  ],
+  "findings": [
+    "Atelectasis",
+    "Cardiomegaly",
+    "Consolidation",
+    "Edema",
+    "Effusion",
+    "Emphysema",
+    "Fibrosis",
+    "Hernia",
+    "Infiltration",
+    "Mass",
+    "Nodule",
+    "Pleural_Thickening",
+    "Pneumonia",
+    "Pneumothorax"
+  ],
   "disclaimer": "Academic prototype; not for diagnosis."
 }
 ```
@@ -33,11 +58,11 @@ No parameters. Response includes the available model IDs, checkpoint presence, t
 
 Send `multipart/form-data`:
 
-| Field | Required | Value |
-|---|---|---|
-| `file` | Yes | Image file: PNG or JPEG, maximum 20 MiB. Each dimension 32–8192 pixels, at most 32 million pixels. |
-| `model` | No | `resnet50` (default) or `densenet121`. |
-| `explain_finding` | No | Exact finding name from `GET /models`, e.g. `Effusion`. If omitted, no explanation is generated. Omit the field rather than sending an empty string. |
+| Field             | Required | Value                                                                                                                                                |
+| ----------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `file`            | Yes      | Image file: PNG or JPEG, maximum 20 MiB. Each dimension 32–8192 pixels, at most 32 million pixels.                                                   |
+| `model`           | No       | `resnet50` (default) or `densenet121`.                                                                                                               |
+| `explain_finding` | No       | Exact finding name from `GET /models`, e.g. `Effusion`. If omitted, no explanation is generated. Omit the field rather than sending an empty string. |
 
 Successful response is JSON. The example abbreviates the list and image data: the real response contains **all 14** findings and a complete data URL.
 
@@ -46,7 +71,12 @@ Successful response is JSON. The example abbreviates the list and image data: th
   "architecture": "resnet50",
   "model_version": "nih14_v1_resnet50_1b5d5d03ee2a",
   "findings": [
-    {"finding":"Atelectasis","score":0.344,"threshold":0.328,"above_threshold":true}
+    {
+      "finding": "Atelectasis",
+      "score": 0.344,
+      "threshold": 0.328,
+      "above_threshold": true
+    }
   ],
   "no_label_above_threshold": false,
   "scores_are_calibrated_probabilities": false,
@@ -55,15 +85,15 @@ Successful response is JSON. The example abbreviates the list and image data: th
   "interpretation": "No label above threshold does not establish a clinically normal scan.",
   "disclaimer": "Academic research prototype; not a diagnostic product or substitute for professional medical advice.",
   "explanation": {
-    "finding":"Effusion",
-    "architecture":"resnet50",
-    "method":"Grad-CAM",
-    "score":0.989,
-    "class_index":4,
-    "native_feature_size":[7,7],
-    "degenerate":false,
-    "limitation":"Model-influence visualization; not a clinically validated explanation",
-    "overlay_data_url":"data:image/png;base64,..."
+    "finding": "Effusion",
+    "architecture": "resnet50",
+    "method": "Grad-CAM",
+    "score": 0.989,
+    "class_index": 4,
+    "native_feature_size": [7, 7],
+    "degenerate": false,
+    "limitation": "Model-influence visualization; not a clinically validated explanation",
+    "overlay_data_url": "data:image/png;base64,..."
   }
 }
 ```
@@ -72,29 +102,38 @@ Successful response is JSON. The example abbreviates the list and image data: th
 
 Error responses:
 
-| Status | Meaning |
-|---|---|
-| 400 | Empty, invalid, unsupported, corrupted or dimension-invalid image. |
-| 413 | Image exceeds 20 MiB. |
-| 422 | Missing `file`, unrecognised `model`, or unrecognised/empty `explain_finding`; FastAPI returns validation details. |
-| 503 | The requested checkpoint is unavailable. |
-| 500 | Inference or explanation failed; server logs contain details. |
+| Status | Meaning                                                                                                            |
+| ------ | ------------------------------------------------------------------------------------------------------------------ |
+| 400    | Empty, invalid, unsupported, corrupted or dimension-invalid image.                                                 |
+| 413    | Image exceeds 20 MiB.                                                                                              |
+| 422    | Missing `file`, unrecognised `model`, or unrecognised/empty `explain_finding`; FastAPI returns validation details. |
+| 503    | The requested checkpoint is unavailable.                                                                           |
+| 500    | Inference or explanation failed; server logs contain details.                                                      |
 
 For 400, 413, 503 and 500 the body is `{"detail":"..."}`. For 422 `detail` is a list of validation errors. Handle either shape in the UI.
 
-### JavaScript example
+### Direct-backend JavaScript example (other frontends)
 
 ```js
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
 
-export async function predictXray(file, model = 'resnet50', finding) {
+export async function predictXray(file, model = "resnet50", finding) {
   const form = new FormData();
-  form.append('file', file);
-  form.append('model', model);
-  if (finding) form.append('explain_finding', finding);
-  const response = await fetch(`${API_BASE_URL}/predict`, { method: 'POST', body: form });
+  form.append("file", file);
+  form.append("model", model);
+  if (finding) form.append("explain_finding", finding);
+  const response = await fetch(`${API_BASE_URL}/predict`, {
+    method: "POST",
+    body: form,
+  });
   const body = await response.json();
-  if (!response.ok) throw new Error(typeof body.detail === 'string' ? body.detail : JSON.stringify(body.detail));
+  if (!response.ok)
+    throw new Error(
+      typeof body.detail === "string"
+        ? body.detail
+        : JSON.stringify(body.detail),
+    );
   return body;
 }
 // Example: const result = await predictXray(file, 'resnet50', 'Effusion');

@@ -21,3 +21,7 @@ Design references generated with the built-in image tool on 2026-10-27. One stan
 ## Theme system
 
 The approved hero layout remains the source for both themes. Dark uses luminous ivory/copper anatomy on ink; light uses an etched ink-and-copper treatment on warm paper. Shared tokens drive every section, including methodology, controls and mobile navigation. The original scan image stays on a neutral dark mount in both themes to preserve its radiographic contrast. Do not invert the whole page or the X-ray when extending this theme system.
+
+## Current refinement
+
+Preserve the approved hero artwork and visual identity. Anatomy remains still except for a tiny mouse-hover tilt. Remove the old idle/drag renderer and scroll reveals. Visible typography has a 12px floor, readable secondary contrast, consistent spacing and meaningful labels. The landing preview is explicitly illustrative; real model interactions live at /workbench. Real results, service/loading/error/empty states and finding-specific attention use the shared light/dark palette. Native region dropdowns were replaced by clear segmented controls.

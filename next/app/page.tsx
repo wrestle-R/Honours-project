@@ -11,13 +11,12 @@ import { LungScene } from "@/components/lung-scene";
 import { Workbench } from "@/components/workbench";
 import { Brand } from "@/components/brand";
 import { Orbital } from "@/components/orbital";
-import { Reveal } from "@/components/reveal";
 
 const science = [
   {
     number: "01",
     title: "Learn the patterns.",
-    body: "We are training DenseNet121 and a ResNet50 baseline on chest X-rays. Multi-label learning lets a single image have more than one finding.",
+    body: "The workbench runs trained DenseNet121 and ResNet50 checkpoints on chest X-rays. Multi-label learning lets a single image have more than one finding.",
     tag: "TRANSFER LEARNING",
   },
   {
@@ -29,14 +28,13 @@ const science = [
   {
     number: "03",
     title: "Measure what matters.",
-    body: "The evaluation plan uses patient-level splits, per-finding AUROC and threshold analysis. Real results will be published after training and validation.",
+    body: "The evaluation plan uses patient-level splits, per-finding AUROC and threshold analysis. The interface displays the actual scores and validation thresholds returned by each model.",
     tag: "REPRODUCIBLE EVALUATION",
   },
 ];
 export default function Home() {
   return (
     <>
-      <Reveal />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -62,7 +60,7 @@ export default function Home() {
                   to.
                 </p>
                 <div className="hero-actions">
-                  <a className="button button-primary" href="#workbench">
+                  <a className="button button-primary" href="/workbench">
                     Explore the workbench <ArrowRight size={18} />
                   </a>
                   <a
@@ -84,21 +82,21 @@ export default function Home() {
                 <span className="fact-value">14</span>
                 <div>
                   <strong>Radiographic findings</strong>
-                  <span>ONE IMAGE. MULTIPLE POSSIBILITIES.</span>
+                  <span>Multi-label analysis</span>
                 </div>
               </div>
               <div>
                 <span className="fact-value">02</span>
                 <div>
                   <strong>Models in comparison</strong>
-                  <span>DENSENET121 × RESNET50</span>
+                  <span>DenseNet121 × ResNet50</span>
                 </div>
               </div>
               <div>
                 <CircleDot className="fact-icon" size={33} strokeWidth={1} />
                 <div>
                   <strong>A view into attention</strong>
-                  <span>MAKING THE REASONING VISIBLE.</span>
+                  <span>Finding-specific Grad-CAM</span>
                 </div>
               </div>
             </div>
@@ -142,6 +140,18 @@ export default function Home() {
               </div>
             </div>
             <Workbench />
+            <div className="preview-action">
+              <div>
+                <h3>Put the models to work.</h3>
+                <p>
+                  Upload an image, compare the scores and generate a
+                  finding-specific attention map.
+                </p>
+              </div>
+              <a className="button button-primary" href="/workbench">
+                Open analysis workbench <ArrowUpRight size={18} />
+              </a>
+            </div>
           </section>
           <section
             className="science-section section-space"
@@ -269,11 +279,12 @@ export default function Home() {
                 An honours project exploring what chest X-ray models learn,
                 where they look, and where they fall short.
               </p>
-              <a className="button button-primary" href="#workbench">
+              <a className="button button-primary" href="/workbench">
                 Explore the demo <ArrowUpRight size={18} />
               </a>
               <p className="training-status">
-                <span /> In development. Models are currently training.
+                <span /> Two trained models. Analysis runs with the local
+                backend.
               </p>
             </div>
             <Orbital />
@@ -286,13 +297,13 @@ export default function Home() {
               </div>
               <div>
                 <span className="roadmap-dot" />
-                <span>Model training & evaluation</span>
-                <small>IN PROGRESS</small>
+                <span>Models & explanation</span>
+                <small>READY LOCALLY</small>
               </div>
               <div>
                 <span className="roadmap-dot empty" />
-                <span>Connected analysis workbench</span>
-                <small>UP NEXT</small>
+                <span>Research workbench</span>
+                <small>AVAILABLE</small>
               </div>
             </div>
           </section>

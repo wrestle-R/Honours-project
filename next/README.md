@@ -1,51 +1,42 @@
-# Lucent
+# Lucent frontend
 
-See beyond the scan. An honours project exploring explainable chest X-ray analysis.
+Next.js App Router, React and TypeScript. Run the complete local project with `../start.command` after `../setup.command`. Run this directory alone with `npm ci` and `npm run dev`.
 
-## Current scope
+## Pages
 
-A polished, responsive Next.js landing page with an interactive Three.js hero, original/attention/comparison image modes, region selection and opacity controls. The page explains the planned research and explicitly labels every illustrative element.
+- `/`: project overview, a static-at-rest hover illustration, readable methodology and an explicitly illustrative interface preview.
+- `/workbench`: real model input, model comparison, finding scores, per-finding Grad-CAM, image comparison and JSON export.
+- Unknown routes: a branded page linking back to the overview and workbench.
 
-The lungs are a synthetic illustration mapped onto a curved Three.js mesh, with ambient particles and restrained parallax. The visual is 2.5D conceptual anatomy, not a patient reconstruction. A static fallback appears while WebGL loads or when it is unavailable. The workbench chest image is synthetic and its attention overlay is hand-designed. No predictions, patient uploads, accounts or evaluation results are connected yet.
+## Structure
 
-## Local development
+- `app/`: page composition, shared typography, themes and metadata.
+- `app/workbench/`: analysis page and its responsive styles.
+- `app/api/service/`: checks the backend health and available models; returns a clear offline state if disconnected.
+- `app/api/predict/`: validates the multipart request and forwards it to the configured inference service. Uploads are not stored.
+- `lib/analysis.ts`: shared API types, model/finding names, response validation and error parsing.
+- `lib/analysis-server.ts`: server-only backend configuration and service checks.
+- `components/analysis-workbench.tsx`: request lifecycle, model selection, files, cancellation and results.
+- `components/analysis-viewer.tsx`: upload/drag-and-drop and original/attention/comparison views.
+- `components/finding-results.tsx`: all 14 actual scores, threshold markers, model comparison and finding selection.
+- `components/lung-scene.tsx`: a small hover-only CSS tilt of the approved illustration. No idle, drag, scroll animation or WebGL renderer.
+- `public/images/`: synthetic artwork and the clearly labelled example JPEG.
+- `scripts/analysis.integration.test.mjs`: integration checks against the actual running backend through the Next.js bridge.
 
-Use Node.js 22 or newer. The app and all frontend source live in this directory.
+## Configuration
 
-```sh
-npm ci
-npm run dev
-```
+Locally, the bridge defaults to `http://127.0.0.1:8000`. Optionally set the server-only `LUCENT_API_URL` to a different backend. On Vercel, an unconfigured service stays offline; it never attempts to use a visitor's local machine. Real inference requires a separately hosted Python backend. No custom environment file is needed for local development.
 
-Open http://localhost:3000.
+Dark is the default. The sun/moon button selects a persistent light/dark theme, applied before paint on subsequent visits and synchronized across tabs. All sections and controls use the shared palette in `app/theme.css`. The lungs use a complementary ink/copper treatment on paper; X-rays stay on a neutral dark imaging surface.
+
+Visible type is at least 12px, with larger body text, keyboard focus indicators, labelled controls, responsive layouts and reduced-motion support. The model-input comparison preview is normalized to 224×224 so that it aligns spatially with the backend's 224×224 Grad-CAM overlay.
 
 ## Checks
 
-```sh
+```bash
 npm run typecheck
 npm run build
-npm start
+npm run check:integration
 ```
 
-## Layout
-
-- `app/`: page composition, styles, metadata, favicon and social image.
-- `components/`: navigation, animated anatomy, interactive workbench and reveal behaviour.
-- `public/images/`: compressed, synthetic artwork with no patient information.
-- `design/`: art direction and asset provenance.
-
-The static content stays in Server Components. Client components handle only the browser interactions. The Three.js renderer loads separately, caps device pixel ratio and frame rate, pauses rendering outside the viewport and releases GPU resources on unmount. Reduced motion is respected, and all image controls have keyboard-accessible equivalents.
-
-## Deployment
-
-The `wrestle-R/Honours-project` GitHub repository connects to the `honours-project` Vercel project with **Root Directory: `next`**, **Framework: Next.js** and **Production Branch: `main`**. Pushes to main deploy automatically. No custom environment variables or real environment files are required for this phase.
-
-## Next phase
-
-Connect the actual trained DenseNet121 and ResNet50 models through a FastAPI backend. Replace the illustrative attention maps with real Grad-CAM outputs and publish measured evaluation metrics only after validation. Preserve patient-level dataset splits, report label noise and evaluate thresholds and class imbalance.
-
-Academic prototype. Not for clinical use.
-
-## Color themes
-
-The header's sun/moon button switches between dark and light themes. Dark is the default, and an explicit choice is saved in browser storage, applied before the first paint on repeat visits and synchronized across tabs. The switch still works if storage is blocked. All sections, forms and controls use shared tokens from `app/theme.css`. The lung visual uses a coordinated ink-and-copper treatment on light backgrounds, while the radiograph retains a neutral dark viewing stage in either theme.
+Integration checks require local services to be running; `LUCENT_TEST_URL` overrides the default frontend address. The project root README explains setup, hosting, data handling and score interpretation.

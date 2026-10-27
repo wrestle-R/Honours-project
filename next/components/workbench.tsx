@@ -24,13 +24,13 @@ const features = [
     icon: Layers3,
     title: "More than one finding.",
     description:
-      "One image can tell several stories. The planned classifier considers 14 radiographic findings independently.",
+      "One image can tell several stories. Each trained model considers 14 radiographic findings independently.",
   },
   {
     icon: Brain,
     title: "See where it looks.",
     description:
-      "Grad-CAM will help inspect the image regions that influence an output. Attention is a starting point for asking why.",
+      "Grad-CAM helps inspect the image regions that influence an output. Attention is a starting point for asking why.",
   },
   {
     icon: ChartNoAxesColumnIncreasing,
@@ -48,10 +48,10 @@ export function Workbench() {
     <div className="workbench" data-reveal>
       <div className="viewer-bar">
         <span>
-          <ScanLine size={15} /> EXPLORATION / 001
+          <ScanLine size={15} /> WORKBENCH PREVIEW
         </span>
         <span className="demo-status">
-          <i /> Interactive concept
+          <i /> Illustrative preview
         </span>
       </div>
       <div className="workbench-grid">
@@ -145,19 +145,29 @@ export function Workbench() {
             ))}
           </div>
           <div className="region-picker">
-            <label htmlFor="region">Explore illustrative attention</label>
-            <select
-              id="region"
-              value={region}
-              onChange={(e) => {
-                setRegion(e.target.value);
-                if (mode === "original") setMode("attention");
-              }}
+            <span>Explore illustrative attention</span>
+            <div
+              className="region-options"
+              role="group"
+              aria-label="Illustrative attention region"
             >
-              <option value="mid">Mid-lung region</option>
-              <option value="upper">Upper-lung region</option>
-              <option value="lower">Lower-lung region</option>
-            </select>
+              {[
+                { id: "upper", label: "Upper" },
+                { id: "mid", label: "Mid" },
+                { id: "lower", label: "Lower" },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  aria-pressed={region === item.id}
+                  onClick={() => {
+                    setRegion(item.id);
+                    if (mode === "original") setMode("attention");
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
           </div>
           <a href="#science" className="text-link">
             Behind the approach <ArrowUpRight size={16} />

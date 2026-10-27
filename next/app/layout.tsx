@@ -13,11 +13,7 @@ const serif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : "http://localhost:3000",
-  ),
+  metadataBase: new URL("https://lucent-honours.vercel.app"),
   title: "Lucent | See beyond the scan",
   description:
     "An honours research project exploring explainable chest X-ray analysis with deep learning, visual attention and reproducible model evaluation.",
