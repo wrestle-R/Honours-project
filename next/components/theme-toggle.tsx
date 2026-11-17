@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { Moon, Sun } from "lucide-react";
 type Theme = "light" | "dark";
 const storageKey = "lucent-theme";
@@ -24,11 +25,19 @@ export function ThemeToggle() {
     window.addEventListener("storage", sync);
     return () => window.removeEventListener("storage", sync);
   }, []);
-  function toggle() {
+  const transitioning = useRef(false);
+  async function toggle() {
+    if (transitioning.current) return;
     const next =
       document.documentElement.dataset.theme === "light" ? "dark" : "light";
-    applyTheme(next);
-    setTheme(next);
+    const update = () => { applyTheme(next); setTheme(next); };
+    if (document.startViewTransition && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      transitioning.current = true;
+      try {
+        const transition = document.startViewTransition(() => flushSync(update));
+        await transition.finished;
+      } finally { transitioning.current = false; }
+    } else update();
     try {
       localStorage.setItem(storageKey, next);
     } catch {

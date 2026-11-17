@@ -161,3 +161,10 @@ body,
 .anatomy {
   background: var(--background);
 }
+
+/* A full-page vertical curtain keeps every surface in the same theme. */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; animation: theme-curtain 1800ms cubic-bezier(.65,0,.35,1) both; }
+@keyframes theme-curtain { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+@media (prefers-reduced-motion: reduce) { ::view-transition-new(root) { animation: none; } }
